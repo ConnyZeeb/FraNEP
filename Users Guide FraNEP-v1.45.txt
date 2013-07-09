@@ -1,0 +1,75 @@
+Related article:
+C.Zeeb, E. Gomez Rivas, P. D. Bons, S. Virgo, P. Blum (in press). Fracture Network Evaluation Program (FraNEP): A software for analyzing trace-line maps of fracture networks: Computers & Geosciences, available online 31 May 2013. Doi: 10.1016/j.cageo.2013.04.027
+
+FraNEP Users Guide (v1.45):
+
+
+Before getting started:
+Make sure that (a) Makros are enabled and (b) the Solver Add-In is installed! 
+Choose the languag,e in which your version of excel is installed (currently german or english).
+(A correction method for truncation bias is not yet included, so correct your data before using FraNEP.)
+
+
+Data input ("Input"-sheet):
+
+Step 1, Fracture data: Calculations in FraNEP are based on the endpoint-coordinates of lineaments (e.g. traces of fractures). Import the fracture-endpoints "x1, y1, x2, y2" to the "Input"-sheet, into the columns "A-D". Adapt the equations for the calculation of orientation and length in columns "E, D" (copy down).
+
+Step 2, Fracture sets: Define the number and the min- and max-orientations (between 0° and 180°) for each fracture sets (maximum four sets). Check if the sum of fractures per set ("M6") is equal to the number of fractures in "I16". The orientations of the input data can be plotted in a rose diagram using the "Visualize"-button in the "Input"-sheet.
+
+Step 3, Sampling area: Define the dimensions of the area from which the fractures were sampled. The shape can only be a rectangle, defined by the point of origin (lower left edge) and the length in x- and y-direction. The dimensions are used for (a) the visualization of the fractures in the defined area, (b) the calculation of the preliminary fracture density and intensity, and (c) for the evaluation of censored fractures when applying the scanline sampling method. If your sampling area is irregular shaped and/or information on a preliminary fracture density and the number of censored fractures for the scanline sampling method are not required, you can skip this step. (Note: It is still possible to visualize the fractures in the sampling area!)
+
+Step 4, Preliminary results: Based on the input, some preliminary informations on: (a) the number of fractures, (b) the sampling area size, (c) fracture density, (d) fracture intensity, and (e) fracture mean length are provided in the "Input"-sheet. It is also possible to generate a trace-line map and a rose diagram plot of the sampled data using the "Visualize"-button (Result is presented in a sheet named: Trace Map Data).
+
+
+Sampling ("Options"-sheet"):
+
+Step 1, Sampling method: Choose one of the three sampling methods (a) window sampling, (b) scanline sampling or (c) circular scanline and window sampling, by switching it on (1). (Note: only one sampling method can be used at a time!)
+
+Step 2, Number of analyses: Define the number of sampling runs you wish to perform (max 200).
+
+Step 3, Sampling ("Sampling"-sheet): Define the sampling for the choosen method.
+Window sampling method: Define a rectangular sampling window for each analyses run. The rectangle is defined by its point of origin (lower left edge) in columns "B, C" and the edge lengths in x- and y-direction in columns "D, E". The size of the sampling window is calculated automatically. (Note: The windows defined here are also used to define the window, in which the circular scanlines of the circular scanline and window method are placed!)
+Scanline sampling method: Define the start- and endpoints of each scanline for each analyses run in columns "G - J". The length of the scanline and its orientation is calculated automatically.
+Circular scanline and window method: The circular scanlines are placed in a sampling window defined in columns "B - E". For the coordinates of the centres of the circular scanlines two options are available: (a) defined centres (columns "M, N") or (b) random placement (leave columns "M, N" empty). (Note: If you define the centres, the coordinates are used for each analysis run!). In column "O" the radius is defined. The size of the window enclosed by the circular scanline is automatically calculated.
+
+Step 4, Starting values of fitting parameter ("Sampling"-sheet): Generally it is not necessary to change those values unless the Solver is unable to find a solution. If this happens, the code will provide an error. In that case stop the makro and change starting values of fitting parameters (The Solver is most sensitive when solving the lognormal distribution).  
+
+
+Sampling Options ("Options"-sheet"):
+
+Step 1, Length fit (window and scanline sampling): Switch for the evaluation of the fracture length distribution: (0) none, (1) power-law, (2) exponential, (3) log-normal, or (4) automatically.
+
+Step 2, Diagram type (window and scanline sampling): Switch for the generation of diagrams plotting fracture lengths: (0) none, (1) cumulative distribtuion (cdf), (2) cumulative frequency (cf), or (3) both (cdf and cf).
+
+Step 3, Summary sheet (window and scanline sampling methods, circular scanline and window method automatically): Switch for the generation of a summary sheet, summaryzing the results of all anaylses: (0) no or (1) yes.
+
+Step 4, Write orientations (window and scanline sampling): Switch to write the fracture orientations of the sampled fractures to the analysis sheet: (0) no or (1) yes. (Note: If necessary, switch off to reduce computation times)
+
+Step 5a, Visualization (window sampling): Switch for the generation of a trace-line map: (0) no or (1) yes.
+
+Step 5b, Visualization scaling (window sampling): Defines a scaling parameter for the visualization (Reduce for large maps). 
+
+Step 6, Scanline combination (scanline sampling): Switch for scanline combination: (0) no, (1) multi scanline (combines all scanline analyses), (2) two consecutive scanlines (e.g. if one scanline cannot capture all fracture sets), (3) both.
+
+Step 7, Number of circular scan-lines (circular scanline and window method): Definse the number of circular scanlines to be placed in one sampling window (min 10 after Rohrbaugh et al., 2002).
+
+
+Additional Options ("Options"-sheet"):
+
+Step 1, Fracture density correction (window sampling): Half of the censored fractures are neglected for the calculation of fracture density: (0) no or (1) yes.
+
+Step 2, Lower uncensored cut-off length (window and scanline sampling): All lengths below the shortest uncensored fracture are neglected when evaluating the best fit: (0) no or (1) yes. (Note: Calculation of fracture intensity and mean length are not influenced.)
+
+Step 3, Rose diagram (v1.42) (window and scanline sampling): Creates a rose diagram plot of fracture orientations. Options are: (0) no, (1) standard plot (number of orientations per bin) and (2) length weighted (sum of fracture lengths for each orientation bin). The bin size can be defined in cell "C11" (Chose a bin size for which the number of bins is even!). (Note: For rose diagram of input data the "Visualize"-button in the "Data"-sheet is used. The "Write orientaions"-option needs to be on!)
+
+
+Start analysis ("Options"-sheet"):
+Press "Run"-button
+
+
+Results: 
+
+Results are provided in a seperate sheet for each analysis run, with: 
+(a) Window# (= analysis) and Map# (= trace-line mapn) for window sampling method, 
+(b) Line# (= analysis), Line#+# (= consecutive scanline combination) and Multi (= combination of multiple scanlines) for scanline sampling method, and (c) Circular Estimator for circular scanline and window method.
+(# stands for individual anaylisis runs!)
